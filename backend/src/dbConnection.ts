@@ -1,6 +1,6 @@
 import mysql from "mysql";
 
-const connection = mysql.createConnection({
+export const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
@@ -11,5 +11,3 @@ connection.connect((err: Error | null) => {
   if (err) throw err;
   console.log("Connected!");
 });
-
-module.exports = connection;
