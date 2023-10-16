@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mysql, { Pool } from "mysql2/promise";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
@@ -13,10 +14,11 @@ const pool: Pool = mysql.createPool({
   database: "messenger",
 });
 
+app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/", (_, res) => {
-  res.send("Hello World!");
+app.get("/api", (req, res) => {
+  return res.send({ message: "Hello World!" });
 });
 
 // Endpoint to send a message
