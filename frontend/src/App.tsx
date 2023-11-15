@@ -6,11 +6,18 @@ const App: React.FC = () => {
   const messages = useChatState((state) => state.messages);
   const [msg, setMsg] = useState("");
   const [data, setData] = useState("");
+  const [dbMessages, setDbMessages] = useState([""]);
 
   fetch("http://localhost:3000/api")
     .then((res) => res.json())
     .then((data) => {
       setData(data.message);
+    });
+  
+  fetch("http://localhost:3000/api/messages")
+    .then((res) => res.json())
+    .then((data) => {
+      setDbMessages(data);
     });
   const handleMsgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMsg(event.target.value);

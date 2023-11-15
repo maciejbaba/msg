@@ -48,6 +48,19 @@ app.post("/send", async (req, res) => {
   }
 });
 
+app.get("/api/messages", async (req, res) => {
+  try {
+    const [rows] = await pool.execute(
+      "SELECT * FROM messages ORDER BY timestamp DESC"
+    );
+    return res.json(rows);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error retrieving messages", error });
+  }
+});
+
 // Endpoint to get messages for a user
 app.get("/messages/:user", async (req, res) => {
   const user = req.params.user;
